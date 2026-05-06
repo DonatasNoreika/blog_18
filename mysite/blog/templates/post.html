@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Įrašas{% endblock %}
+
+{% block content %}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="small text-muted">
+            {{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        {% if post.author == user %}
+        <div>
+            <a href="{% url 'post_update' post.pk %}" class="btn btn-warning">Redaguoti</a>
+            <a href="{% url 'post_delete' post.pk %}" class="btn btn-danger">Ištrinti</a>
+        </div>
+        {% endif %}
+        <hr>
+        <h5>Komentarai:</h5>
+        {% if user.is_authenticated %}
+        <form method="post" class="mb-2">
+            {% csrf_token %}
+            {% load crispy_forms_tags %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-primary">Paskelbti</button>
+        </form>
+        {% endif %}
+        {% for comment in post.comments.all %}
+        <div class="mb-4">
+            <div class="small text-muted">
+                {{ comment.author }}, {{ comment.date | date:"Y-m-d H:i:s" }}
+            </div>
+            <p>{{ comment.content }}</p>
+            {% if comment.author == user %}
+            <a class="btn btn-warning" href="{% url 'comment_update' comment.pk %}">Redaguoti</a>
+            <a class="btn btn-danger" href="{% url 'comment_delete' comment.pk %}">Ištrinti</a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

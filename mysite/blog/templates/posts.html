@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Įrašai{% endblock %}
+
+{% block content %}
+
+{% for post in posts %}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="small text-muted">
+            {{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}
+        </div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content | truncatewords:10 }}</p>
+        <p><a href="{% url 'post' post.pk %}">Skaityti daugiau</a></p>
+        <p>Komentarų: {{ post.comments_count }}</p>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

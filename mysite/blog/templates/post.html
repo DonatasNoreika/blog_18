@@ -6,6 +6,9 @@
 
 <div class="card mb-4">
     <div class="card-body">
+        {% if post.photo %}
+        <img class="card-img-top" src="{{ post.photo.url }}" alt="...">
+        {% endif %}
         <div class="small text-muted">
             {{ post.author }}, {{ post.date | date:"Y-m-d H:i:s" }}
         </div>

@@ -48,7 +48,7 @@ class SignUp(generic.CreateView):
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = "post_form.html"
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'photo']
     success_url = reverse_lazy("posts")
 
     def form_valid(self, form):
@@ -60,7 +60,7 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Post
     template_name = "post_form.html"
-    fields = ['title', 'content']
+    fields = ['title', 'content', 'photo']
     # success_url = reverse_lazy("posts")
 
     def get_success_url(self):

@@ -7,6 +7,7 @@ from django.views.generic.edit import FormMixin
 from .forms import CommentForm
 from .models import Post, Comment
 from django.contrib.auth.forms import UserCreationForm
+from django.db.models import Q
 
 # Create your views here.
 class PostListView(generic.ListView):
@@ -113,3 +114,14 @@ class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self, queryset = ...):
         return self.request.user
+
+
+def search(request):
+    query = request.GET.get('query')
+    context = {
+        'query': query,
+        'posts': Post.objects.filter(Q(title__icontains=query) |
+                                     Q(content__icontains=query) |
+                                     Q(author__username__icontains=query)),
+    }
+    return render(request, template_name="search.html", context=context)

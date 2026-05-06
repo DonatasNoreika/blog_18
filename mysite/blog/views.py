@@ -14,6 +14,7 @@ class PostListView(generic.ListView):
     model = Post
     template_name = "posts.html"
     context_object_name = "posts"
+    paginate_by = 2
 
 
 class PostDetailView(FormMixin, generic.DetailView):

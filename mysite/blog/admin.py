@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Post, Comment
+from .models import Post, Comment, CustomUser
+from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 
@@ -20,4 +21,11 @@ class PostAdmin(admin.ModelAdmin):
         ("Info", {"fields": ('date', 'comments_count')})
     ]
 
+
+class CustomUserAdmin(UserAdmin):
+    fieldsets = UserAdmin.fieldsets + (
+    ("Additional Info", {"fields": ['photo']}),
+    )
+
 admin.site.register(Post, PostAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)

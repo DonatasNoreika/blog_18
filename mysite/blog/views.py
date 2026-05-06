@@ -4,9 +4,8 @@ from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormMixin
-from .forms import CommentForm
-from .models import Post, Comment
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CommentForm, CustomUserCreationForm
+from .models import Post, Comment, CustomUser
 from django.db.models import Q
 
 # Create your views here.
@@ -42,7 +41,7 @@ class PostDetailView(FormMixin, generic.DetailView):
 
 
 class SignUp(generic.CreateView):
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     template_name = "signup.html"
     success_url = reverse_lazy("login")
 
@@ -108,8 +107,8 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteV
 
 
 class ProfileUpdateView(LoginRequiredMixin, generic.UpdateView):
-    model = User
-    fields = ['first_name', 'last_name', 'email']
+    model = CustomUser
+    fields = ['first_name', 'last_name', 'email', 'photo']
     template_name = 'profile.html'
     success_url = reverse_lazy('profile')
 

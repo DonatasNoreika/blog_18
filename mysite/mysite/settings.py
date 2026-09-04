@@ -13,7 +13,12 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from django.utils.translation import gettext_lazy as _
-from .my_settings import SECRET_KEY, DEBUG, ALLOWED_HOSTS
+from .my_settings import (SECRET_KEY,
+                          DEBUG,
+                          ALLOWED_HOSTS,
+                          STATICFILES_DIRS,
+                          STATIC_ROOT,
+                          STATIC_URL)
 
 from django.conf.global_settings import MEDIA_ROOT
 
@@ -129,7 +134,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = STATICFILES_DIRS
+
+STATIC_ROOT = STATIC_ROOT
+
+STATIC_URL = STATIC_URL
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
